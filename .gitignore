@@ -14,9 +14,29 @@ test/version_tmp
 tmp
 vendor
 
+# opsworks_puma
+opsworks_puma/.vagrant
+opsworks_puma/Berksfile.lock
+opsworks_puma/*~
+opsworks_puma/*#
+opsworks_puma/.#*
+opsworks_puma/\#*#
+opsworks_puma/.*.sw[a-z]
+opsworks_puma/*.un~
+opsworks_puma/cookbooks
+
 # YARD artifacts
 .yardoc
 _yardoc
 doc/
-/Gemfile.lock
+Gemfile.lock
 build
+
+# Bundler
+bin/*
+.bundle/*
+.idea
+
+
+
+
