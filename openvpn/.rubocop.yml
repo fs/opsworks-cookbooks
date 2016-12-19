@@ -1,0 +1,18 @@
+AllCops:
+  Include:
+    - '**/Gemfile'
+  Exclude:
+    - '.bundle/**/*'
+    - 'vendor/bundle/**/*'
+
+Encoding:
+  Enabled: false
+
+LineLength:
+  Max: 100
+
+AlignParameters:
+  Enabled: false
+
+SpaceBeforeFirstArg:
+  Enabled: false
