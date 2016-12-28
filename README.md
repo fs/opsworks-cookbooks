@@ -38,3 +38,9 @@ See also <https://aws.amazon.com/opsworks/>
 LICENSE: Unless otherwise stated, cookbooks/recipes originated by Amazon Web Services are licensed
 under the [Apache 2.0 license](http://aws.amazon.com/apache2.0/). See the LICENSE file. Some files
 are just imported and authored by others. Their license will of course apply.
+
+MANUALLY ADDED COOKBOOKS
+RammitMQ: https://github.com/verdigris-cookbooks/opsworks-rabbitmq
+Elixir: https://github.com/asaaki/opsworks-elixir
+Puma: https://github.com/sportngin-cookbooks/opsworks-puma
+OpenVPN: https://github.com/xhost-cookbooks/openvpn
