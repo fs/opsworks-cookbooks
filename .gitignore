@@ -14,37 +14,6 @@ test/version_tmp
 tmp
 vendor
 
-# opsworks_puma
-opsworks_puma/.vagrant
-opsworks_puma/Berksfile.lock
-opsworks_puma/*~
-opsworks_puma/*#
-opsworks_puma/.#*
-opsworks_puma/\#*#
-opsworks_puma/.*.sw[a-z]
-opsworks_puma/*.un~
-opsworks_puma/cookbooks
-
-# openvpn
-openvpn/*~
-openvpn/*#
-openvpn/.#*
-openvpn/\#*#
-openvpn/.*.sw[a-z]
-openvpn/*.un~
-openvpn/*.tmp
-openvpn/*.bk
-openvpn/*.bkup
-openvpn/.kitchen.local.yml
-openvpn/.kitchen/
-openvpn/metadata.json
-openvpn/Berksfile.lock
-openvpn/.vagrant/
-openvpn/.vagrant.d/
-openvpn/vagrant/chef_zero/data_bags/users/*.json
-openvpn/vagrant/chef_zero/nodes/*.json
-openvpn/vagrant/chef_zero/roles/*.json
-
 # YARD artifacts
 .yardoc
 _yardoc
