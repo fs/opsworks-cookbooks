@@ -1,22 +1,18 @@
-Chef::Log.info("Hello from ffmpeg_ubuntu::install")
+log "[#{cookbook_name}][#{recipe_name}] Running ..."
 
 node[:deploy].each do |app_name, deploy|
+  execute "ppa:jon-severinsson/ffmpeg" do
+    command "add-apt-repository ppa:jon-severinsson/ffmpeg"
+  end
 
-  Chef::Log.info("Hello from ffmpeg_ubuntu::install deploy")
+  execute "apt-get update" do
+    command "apt-get update"
+    ignore_failure true
+  end
 
-  script "install_ffmpeg" do
-    interpreter "bash"
-    user "ubuntu"
-    code <<-EOH
-
-    sudo add-apt-repository ppa:jon-severinsson/ffmpeg
-    sudo apt-get update
-    sudo apt-get install ffmpeg
-
-    EOH
-
-    not_if do
-      File.exist?("/usr/local/bin/ffmpeg")
-    end
+  package "ffmpeg" do
+    action :install
   end
 end
+
+log "[#{cookbook_name}][#{recipe_name}] ... finished."
