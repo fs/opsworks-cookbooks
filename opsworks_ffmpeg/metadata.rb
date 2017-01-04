@@ -1,0 +1,6 @@
+name             "ffmpeg_ubuntu"
+maintainer       "Claes Nygren at Inkstone"
+maintainer_email "claes@inkstonehq.com"
+license          "MIT"
+description      "Installs/Configures ffmpeg for ubuntu"
+version          "0.0.1"
