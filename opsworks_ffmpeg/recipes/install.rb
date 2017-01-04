@@ -1,13 +1,12 @@
 log "[#{cookbook_name}][#{recipe_name}] Running ..."
 
 node[:deploy].each do |app_name, deploy|
-  execute "ppa:jon-severinsson/ffmpeg" do
-    command "add-apt-repository ppa:jon-severinsson/ffmpeg"
+  execute "ppa:mc3man/trusty-media" do
+    command "add-apt-repository ppa:mc3man/trusty-media"
   end
 
   execute "apt-get update" do
-    command "apt-get update"
-    ignore_failure true
+    action :run
   end
 
   package "ffmpeg" do
