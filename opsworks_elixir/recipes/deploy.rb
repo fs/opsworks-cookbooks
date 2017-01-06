@@ -1,6 +1,21 @@
 include_recipe "deploy"
 
 node[:deploy].each do |application, deploy|
+  script "update_ssh_config" do
+    interpreter "bash"
+    user "ubuntu"
+    code <<-EOH
+
+    echo "Host *" >> /home/ubuntu/.ssh/config
+    echo "StrictHostKeyChecking no" >> /home/ubuntu/.ssh/config
+
+    EOH
+
+    not_if do
+      File.exist?("/home/ubuntu/.ssh/config")
+    end
+  end
+
   opsworks_deploy do
     deploy_data deploy
     app application
