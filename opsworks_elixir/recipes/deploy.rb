@@ -23,13 +23,17 @@ node[:deploy].each do |application, deploy|
     action :run
   end
 
+  before_migrate do
+    cwd release_path
+  end
+
   execute "setup application locally" do
-    command "cd #{release_path} && bin/setup"
+    command "bin/setup"
     action :run
   end
 
   execute "deploy with edeliver" do
-    command "cd #{release_path} && bin/deploy staging"
+    command "bin/deploy staging"
     action :run
   end
 end
