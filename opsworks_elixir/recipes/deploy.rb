@@ -6,9 +6,9 @@ node[:deploy].each do |application, deploy|
     user "ubuntu"
     code <<-EOH
 
-    echo "Host ec2timelapse" > /home/ubuntu/.ssh/config
-    echo "Hostname localhost" > /home/ubuntu/.ssh/config
-    echo "User ubuntu" > /home/ubuntu/.ssh/config
+    echo "Host ec2timelapse" >> /home/ubuntu/.ssh/config
+    echo "Hostname localhost" >> /home/ubuntu/.ssh/config
+    echo "User ubuntu" >> /home/ubuntu/.ssh/config
 
     EOH
 
@@ -24,6 +24,11 @@ node[:deploy].each do |application, deploy|
 
   execute "get local hex" do
     command "mix local.hex --force"
+    action :run
+  end
+
+  execute "get local rebar" do
+    command "mix local.rebar --force"
     action :run
   end
 
