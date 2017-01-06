@@ -11,6 +11,10 @@ node[:deploy].each do |application, deploy|
     echo "User ubuntu" > /home/ubuntu/.ssh/config
 
     EOH
+
+    not_if do
+      File.exist?("/home/ubuntu/.ssh/config")
+    end
   end
 
   opsworks_deploy do
@@ -23,16 +27,14 @@ node[:deploy].each do |application, deploy|
     action :run
   end
 
-  before_migrate do
-    cwd release_path
-  end
-
   execute "setup application locally" do
+    cwd "#{deploy[:deploy_to]}/current"
     command "bin/setup"
     action :run
   end
 
   execute "deploy with edeliver" do
+    cwd "#{deploy[:deploy_to]}/current"
     command "bin/deploy staging"
     action :run
   end
