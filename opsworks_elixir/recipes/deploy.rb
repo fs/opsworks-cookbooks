@@ -24,12 +24,12 @@ node[:deploy].each do |application, deploy|
   end
 
   execute "setup application locally" do
-    command "bin/setup"
+    command "cd #{release_path} && bin/setup"
     action :run
   end
 
   execute "deploy with edeliver" do
-    command "bin/deploy staging"
+    command "cd #{release_path} && bin/deploy staging"
     action :run
   end
 end
