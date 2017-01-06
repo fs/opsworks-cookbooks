@@ -1,7 +1,6 @@
 include_recipe "deploy"
 
 node[:deploy].each do |application, deploy|
-
   script "update_ssh_config" do
     interpreter "bash"
     user "ubuntu"
@@ -12,6 +11,11 @@ node[:deploy].each do |application, deploy|
     echo "User ubuntu" > /home/ubuntu/.ssh/config
 
     EOH
+  end
+
+  opsworks_deploy do
+    deploy_data deploy
+    app application
   end
 
   execute "get local hex" do
