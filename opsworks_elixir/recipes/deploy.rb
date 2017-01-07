@@ -1,19 +1,15 @@
 include_recipe "deploy"
 
 node[:deploy].each do |application, deploy|
-  script "update_ssh_config" do
+  script "create_ssh_keys" do
     interpreter "bash"
-    user "ubuntu"
+    user "root"
     code <<-EOH
 
-    echo "Host *" >> /home/ubuntu/.ssh/config
-    echo "StrictHostKeyChecking no" >> /home/ubuntu/.ssh/config
+    ssh-keygen -f $HOME/.ssh/id_rsa -t rsa -N ''
+    cat $HOME/.ssh/id_rsa.pub >> /home/ubuntu/.ssh/authorized_keys
 
     EOH
-
-    not_if do
-      File.exist?("/home/ubuntu/.ssh/config")
-    end
   end
 
   opsworks_deploy do
