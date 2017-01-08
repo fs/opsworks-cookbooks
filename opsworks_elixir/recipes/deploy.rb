@@ -35,7 +35,7 @@ node[:deploy].each do |application, deploy|
 
   execute "deploy with edeliver" do
     cwd "#{deploy[:deploy_to]}/current"
-    command "bin/deploy opsworks"
+    command "bin/deploy staging"
     action :run
   end
 end
