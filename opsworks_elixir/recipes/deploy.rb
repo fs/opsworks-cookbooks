@@ -1,31 +1,6 @@
 include_recipe "deploy"
 
 node[:deploy].each do |application, deploy|
-  script "create_ssh_keys" do
-    interpreter "bash"
-    user "root"
-    code <<-EOH
-
-    ssh-keygen -f $HOME/.ssh/id_rsa -t rsa -N ''
-    cat $HOME/.ssh/id_rsa.pub >> /home/ubuntu/.ssh/authorized_keys
-
-    EOH
-
-    not_if do
-      File.exist?("$HOME/.ssh/id_rsa.pub")
-    end
-  end
-
-  script "permit_opt_folder" do
-    interpreter "bash"
-    user "root"
-    code <<-EOH
-
-    chmod 777 /opt
-
-    EOH
-  end
-
   opsworks_deploy do
     deploy_data deploy
     app application

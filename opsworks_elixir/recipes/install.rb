@@ -25,6 +25,38 @@ when "ubuntu","debian"
       action :install
     end
   end
+
+  script "create_ssh_keys" do
+    interpreter "bash"
+    user "root"
+    code <<-EOH
+
+    ssh-keygen -f $HOME/.ssh/id_rsa -t rsa -N ''
+    cat $HOME/.ssh/id_rsa.pub >> /home/ubuntu/.ssh/authorized_keys
+
+    EOH
+  end
+
+  script "update_ssh_config" do
+    interpreter "bash"
+    user "root"
+    code <<-EOH
+
+    echo "Host ec2timelapse" >> $HOME/.ssh/config
+    echo "Hostname localhost" >> $HOME/.ssh/config
+
+    EOH
+  end
+
+  script "permit_opt_folder" do
+    interpreter "bash"
+    user "root"
+    code <<-EOH
+
+    chmod 777 /opt
+
+    EOH
+  end
 else
   raise "Your platform `#{node[:platform]}` (family: `#{node[:platform_family]}`) is not supported!"
 end
