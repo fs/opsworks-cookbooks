@@ -12,6 +12,20 @@ node[:deploy].each do |application, deploy|
     EOH
   end
 
+  script "update_locale_settings" do
+    interpreter "bash"
+    user "ubuntu"
+    code <<-EOH
+
+    echo "export LANGUAGE=en_US.UTF-8" >> /home/ubuntu/.profile
+    echo "export LANG=en_US.UTF-8" >> /home/ubuntu/.profile
+    echo "export LC_CTYPE=en_US.UTF-8" >> /home/ubuntu/.profile
+    echo "export LC_COLLATE=en_US.UTF-8" >> /home/ubuntu/.profile
+    echo "export LC_ALL=en_US.UTF-8" >> /home/ubuntu/.profile
+
+    EOH
+  end
+
   opsworks_deploy do
     deploy_data deploy
     app application
