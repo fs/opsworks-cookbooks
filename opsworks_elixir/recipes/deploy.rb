@@ -10,18 +10,18 @@ node[:deploy].each do |application, deploy|
     cat $HOME/.ssh/id_rsa.pub >> /home/ubuntu/.ssh/authorized_keys
 
     EOH
+
+    not_if do
+      File.exist?("$HOME/.ssh/id_rsa.pub")
+    end
   end
 
-  script "update_locale_settings" do
+  script "permit_opt_folder" do
     interpreter "bash"
-    user "ubuntu"
+    user "root"
     code <<-EOH
 
-    echo "export LANGUAGE=en_US.UTF-8" >> /home/ubuntu/.profile
-    echo "export LANG=en_US.UTF-8" >> /home/ubuntu/.profile
-    echo "export LC_CTYPE=en_US.UTF-8" >> /home/ubuntu/.profile
-    echo "export LC_COLLATE=en_US.UTF-8" >> /home/ubuntu/.profile
-    echo "export LC_ALL=en_US.UTF-8" >> /home/ubuntu/.profile
+    chmod 777 /opt
 
     EOH
   end
