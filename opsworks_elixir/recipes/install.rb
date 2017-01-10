@@ -57,6 +57,18 @@ when "ubuntu","debian"
 
     EOH
   end
+
+  script "opsworks_env_vars" do
+    interpreter "bash"
+    user "root"
+    code <<-EOH
+
+    echo "if [ -f ~/.opsworks_env_vars ]; then" >> /home/ubuntu/.profile
+    echo "  . ~/.opsworks_env_vars" >> /home/ubuntu/.profile
+    echo "fi" >> /home/ubuntu/.profile
+
+    EOH
+  end
 else
   raise "Your platform `#{node[:platform]}` (family: `#{node[:platform_family]}`) is not supported!"
 end

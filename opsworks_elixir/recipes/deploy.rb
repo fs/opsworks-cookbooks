@@ -6,6 +6,21 @@ node[:deploy].each do |application, deploy|
     app application
   end
 
+  contents = []
+  deploy[:environment_variables].each do |key, value|
+    contents << "export #{key}=\"'#{value}'\""
+  end
+
+  script "create_opsworks_env_vars" do
+    interpreter "bash"
+    user "root"
+    code <<-EOH
+
+      echo \''#{contents.join(" ")}\'' > /home/ubuntu/.opsworks_env_vars
+
+    EOH
+  end
+
   execute "get local hex" do
     command "mix local.hex --force"
     action :run
