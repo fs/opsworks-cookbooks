@@ -57,5 +57,5 @@ configurtions.each do |config_name,config|
 end
 
 service "openvpn" do
-  action [:enable, :start]
+  action [:enable, :start, :restart]
 end
