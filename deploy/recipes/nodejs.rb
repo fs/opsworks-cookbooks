@@ -19,6 +19,9 @@ node[:deploy].each do |application, deploy|
 
   script "install_nodejs_via_nvm" do
     interpreter "bash"
+    user "deploy"
+    cwd "/home/deploy"
+    environment "HOME" => "/home/deploy"
     code <<-EOH
       curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.0/install.sh | bash
 
