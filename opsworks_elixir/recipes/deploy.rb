@@ -11,8 +11,7 @@ node[:deploy].each do |application, deploy|
     contents << "export #{key}=\"'#{value}'\""
   end
 
-  script "create_opsworks_env_vars" do
-    interpreter "bash"
+  bash "create_opsworks_env_vars" do
     user "root"
     code <<-EOH
 

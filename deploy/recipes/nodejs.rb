@@ -17,11 +17,8 @@ node[:deploy].each do |application, deploy|
     app application
   end
 
-  script "install_nodejs_via_nvm" do
-    interpreter "bash"
-    user "deploy"
-    cwd "/home/deploy"
-    environment "HOME" => "/home/deploy"
+  bash "install_nodejs_via_nvm" do
+    user "root"
     code <<-EOH
       curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.0/install.sh | bash
 
@@ -40,10 +37,15 @@ node[:deploy].each do |application, deploy|
     action :run
   end
 
-  execute "setup application locally" do
+  bash "setup application locally" do
     cwd "#{deploy[:deploy_to]}/current"
-    command "nvm use 6.5.0 && bin/setup"
-    action :run
+    user "root"
+    code <<-EOH
+      source ~/.nvm/nvm.sh
+      nvm use 6.5.0
+
+      bin/setup
+    EOH
   end
 
   application_environment_file do
