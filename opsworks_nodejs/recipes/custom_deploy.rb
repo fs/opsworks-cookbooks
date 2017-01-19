@@ -24,36 +24,36 @@ node[:deploy].each do |application, deploy|
     environment_variables deploy[:environment_variables]
   end
 
-  bash "install_nodejs_via_nvm" do
-    user "root"
-    code <<-EOH
-      curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.0/install.sh | bash
+  # ruby_block "change HOME to #{deploy[:home]} for local setup" do
+  #   block do
+  #     ENV['HOME'] = "#{deploy[:home]}"
+  #   end
+  # end
 
-      source ~/.nvm/nvm.sh
-
-      nvm install 6.5.0
-    EOH
+  Chef::Log.info("Install nvm from source")
+  execute "Install nvm" do
+    command "curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.0/install.sh | bash"
+    action :run
 
     not_if do
       File.exist?("~/.nvm/nvm.sh")
     end
   end
 
-  execute "change npm registry" do
-    command "npm config set registry http://registry.npmjs.org/"
-    action :run
+  Chef::Log.info("Install nodejs 6.5.0 via nvm")
+  execute ". ~/.nvm/nvm.sh && nvm install 6.5.0 && nvm alias default node" do
   end
 
-  bash "setup application locally" do
+  Chef::Log.info("Local application setup via bin/setup")
+  execute ". ~/.nvm/nvm.sh && npm --prefix="" set prefix "" && nvm use --delete-prefix v6.5.0 --silent && bin/setup" do
     cwd "#{deploy[:deploy_to]}/current"
-    user "root"
-    code <<-EOH
-      source ~/.nvm/nvm.sh
-      nvm use 6.5.0
-
-      bin/setup
-    EOH
   end
+
+  # ruby_block "change HOME back to /root after local setup" do
+  #   block do
+  #     ENV['HOME'] = "/root"
+  #   end
+  # end
 
   ruby_block "restart node.js application #{application}" do
     block do
