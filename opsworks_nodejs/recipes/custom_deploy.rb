@@ -24,23 +24,6 @@ node[:deploy].each do |application, deploy|
     environment_variables deploy[:environment_variables]
   end
 
-  Chef::Log.info("Install nodejs from source")
-  execute "Add nodejs to apt source" do
-    command "curl -sL https://deb.nodesource.com/setup_6.x | sudo -E bash -"
-    action :run
-  end
-
-  execute "Install nodejs via apt-get" do
-    command "sudo apt-get install -y nodejs"
-    action :run
-  end
-
-  Chef::Log.info("Make a symlink for new version of nodejs")
-  execute "Symlink new nodejs" do
-    command "rm /usr/local/bin/node && ln -s /usr/bin/nodejs /usr/local/bin/node"
-    action :run
-  end
-
   Chef::Log.info("Local application setup via bin/setup")
   execute "bin/setup" do
     cwd "#{deploy[:deploy_to]}/current"
