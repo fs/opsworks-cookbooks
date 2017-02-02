@@ -2,6 +2,10 @@ execute "gem uninstall puma" do
   only_if "gem list | grep puma"
 end
 
+package "daemon" do
+  action :install
+end
+
 include_recipe "nginx"
 
 directory "/etc/nginx/shared"
