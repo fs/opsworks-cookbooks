@@ -12,7 +12,7 @@ define :puma_web_app do
     http_port deploy[:http_port] || 80
     ssl_port deploy[:ssl_port] || 443
     ssl_support deploy[:ssl_support] || false
-    cookbook deploy.fetch(:opsworks_puma, {})[:template_cookbook] || "opsworks-puma"
+    cookbook deploy.fetch(:opsworks_puma, {})[:template_cookbook] || "opsworks_puma"
     deploy deploy
     template deploy.fetch(:opsworks_puma, {})[:template_file] || "nginx_puma_web_app.erb"
     application deploy
