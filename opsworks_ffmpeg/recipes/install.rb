@@ -1,6 +1,7 @@
 log "[#{cookbook_name}][#{recipe_name}] Running ..."
 
-node[:deploy].each do |app_name, deploy|
+case node[:platform_family]
+when "ubuntu","debian"
   execute "ppa:mc3man/trusty-media" do
     command "add-apt-repository ppa:mc3man/trusty-media"
   end
@@ -12,6 +13,8 @@ node[:deploy].each do |app_name, deploy|
   package "ffmpeg" do
     action :install
   end
+else
+  raise "Your platform `#{node[:platform]}` (family: `#{node[:platform_family]}`) is not supported!"
 end
 
 log "[#{cookbook_name}][#{recipe_name}] ... finished."
