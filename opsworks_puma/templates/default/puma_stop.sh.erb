@@ -17,7 +17,7 @@ cleanup() {
 # Kill process
 if [ -e  $PIDFILE ]; then
   echo -n "Shutting down $APPNAME.."
-  kill $(cat $PIDFILE) && cleanup && success || failure
+  kill $(cat $PIDFILE) && cleanup && log_success_msg || log_failure_msg
 else
   echo "$APPNAME is not running"
 fi

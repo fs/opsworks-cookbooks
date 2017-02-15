@@ -30,7 +30,7 @@ if ps -p $PID > /dev/null; then
     TIME=$((TIME+1))
   done
 
-  [ "$TIME" -ne "$TIMEOUT" ] && success || failure
+  [ "$TIME" -ne "$TIMEOUT" ] && log_success_msg || log_failure_msg
 else
   echo "$APPNAME isn't running.."
   $PUMA_DIR/puma_start.sh
