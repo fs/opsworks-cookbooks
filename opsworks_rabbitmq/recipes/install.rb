@@ -91,6 +91,14 @@ when 'debian'
     end
   end
 
+  execute "enable RabbitMQ web interface" do
+    command "rabbitmq-plugins enable rabbitmq_management"
+  end
+
+  execute "enable RabbitMQ stomp over websockets" do
+    command "rabbitmq-plugins enable rabbitmq_web_stomp"
+  end
+
 when 'rhel', 'fedora'
   # This is needed since Erlang Solutions' packages provide "esl-erlang"; this package just requires "esl-erlang" and provides "erlang".
   if node['erlang']['install_method'] == 'esl'
