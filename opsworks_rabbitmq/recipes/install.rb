@@ -144,6 +144,7 @@ when 'suse'
   service node['rabbitmq']['service_name'] do
     action [:enable, :start]
   end
+
 when 'smartos'
   package 'rabbitmq'do
     action :install
