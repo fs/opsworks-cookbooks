@@ -42,4 +42,4 @@ Opsworks Set-Up
 * Add `custom_env` and `symlink_before_migrate` attributes to the stack's custom JSON as in the example above.
 * Associate the `opsworks-cookbook-custom-dot-env::custom_env` recipe with the **Deploy** and **Setup** events in your rails app's layer.
 
-A deploy isn't necessary if you just want to update the custom configuration. Instead, update the stack's custom JSON, then choose to _Run Command_ > _execute recipes_ and enter `opsworks_custom_dot_env::configure` into the _Recipes to execute_ field. Executing the recipe will write an updated `.env` file and restart unicorn workers.
+A deploy isn't necessary if you just want to update the custom configuration. Instead, update the stack's custom JSON, then choose to _Run Command_ > _execute recipes_ and enter `opsworks_custom_dot_env::default` into the _Recipes to execute_ field. Executing the recipe will write an updated `.env` file and restart unicorn workers.
