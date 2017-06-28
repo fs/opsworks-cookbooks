@@ -46,7 +46,7 @@ server {
   }
 
   <% if @application[:nginx] && @application[:nginx][:extra_locations] %>
-  include @application[:nginx][:extra_locations];
+  include <%= @application[:nginx][:extra_locations] %>;
   <% end %>
 
   location /nginx_status {
