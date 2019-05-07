@@ -21,8 +21,10 @@ when "ubuntu","debian"
   end
 
   elixir_setup[:install][:packages].each do |pkg|
-    package pkg do
+    package pkg[:name] do
       action :install
+      options "--force-yes"
+      version(pkg[:version]) if pkg[:version]
     end
   end
 
